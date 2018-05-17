@@ -19,6 +19,7 @@ package uk.gov.hmrc.statepension.services
 import java.util.TimeZone
 
 import org.joda.time.{DateTimeZone, LocalDate}
+import play.api.Logger
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
@@ -74,7 +75,8 @@ trait NpsConnection extends StatePensionService {
           liablities,
           manualCorrespondence
         ).getExclusions
-
+        Logger.debug("**********The calculateStarting amount is " +  forecastingService.calculateStartingAmount(summary.amounts.amountA2016.total, summary.amounts.amountB2016.mainComponent))
+        Logger.debug("***********The starting amount is " + summary.amounts.startingAmount2016)
         val purgedRecord = niRecord.purge(summary.finalRelevantStartYear)
 
         auditNPSSummary(nino, summary, purgedRecord.qualifyingYears, exclusions)
