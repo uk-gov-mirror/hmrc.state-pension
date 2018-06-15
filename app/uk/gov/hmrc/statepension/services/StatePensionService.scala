@@ -72,7 +72,7 @@ trait DesConnection extends StatePensionService {
 
       val purgedRecord = niRecord.purge(summary.finalRelevantStartYear)
 
-      auditDesSummary(nino, summary, purgedRecord.qualifyingYears, exclusions)
+      auditDesSummary(nino, summary, purgedRecord.qualifyingYears.getOrElse(0), exclusions)
 
       if (exclusions.nonEmpty) {
 
@@ -91,7 +91,7 @@ trait DesConnection extends StatePensionService {
           summary.earningsIncludedUpTo,
           summary.finalRelevantStartYear,
           summary.amounts.pensionEntitlementRounded,
-          purgedRecord.qualifyingYears
+          purgedRecord.qualifyingYears.getOrElse(0)
         )
 
         val personalMaximum = forecastingService.calculatePersonalMaximum(
@@ -109,7 +109,7 @@ trait DesConnection extends StatePensionService {
           earningsIncludedUpTo = summary.earningsIncludedUpTo,
           amounts = StatePensionAmounts(
             summary.amounts.protectedPayment2016 > 0,
-            StatePensionAmount(None, None, forecastingService.sanitiseCurrentAmount(summary.amounts.pensionEntitlementRounded, purgedRecord.qualifyingYears)),
+            StatePensionAmount(None, None, forecastingService.sanitiseCurrentAmount(summary.amounts.pensionEntitlementRounded, purgedRecord.qualifyingYears.getOrElse(0))),
             StatePensionAmount(Some(forecast.yearsToWork), None, forecast.amount),
             StatePensionAmount(Some(personalMaximum.yearsToWork), Some(personalMaximum.gapsToFill), personalMaximum.amount),
             StatePensionAmount(None, None, summary.amounts.amountB2016.rebateDerivedAmount),
@@ -123,7 +123,7 @@ trait DesConnection extends StatePensionService {
           pensionAge = summary.statePensionAge,
           pensionDate = summary.statePensionAgeDate,
           finalRelevantYear = summary.finalRelevantYear,
-          numberOfQualifyingYears = purgedRecord.qualifyingYears,
+          numberOfQualifyingYears = purgedRecord.qualifyingYears.getOrElse(0),
           pensionSharingOrder = summary.pensionSharingOrderSERPS,
           currentFullWeeklyPensionAmount = rateService.MAX_AMOUNT,
           reducedRateElection = summary.reducedRateElection,

@@ -20,11 +20,11 @@ import play.api.Logger
 import play.api.libs.json.{JsPath, Reads, __}
 import play.api.libs.functional.syntax._
 
-case class DesNIRecord(qualifyingYears: Int, taxYears: List[DesNITaxYear]) {
+case class DesNIRecord(qualifyingYears: Option[Int] , taxYears: List[DesNITaxYear]) {
   val payableGapsPre2016: Int = taxYears.filter(_.startTaxYear < 2016).count(_.payable)
   val payableGapsPost2016: Int = taxYears.filter(_.startTaxYear >= 2016).count(_.payable)
   val qualifyingYearsPost2016: Int = taxYears.filter(_.startTaxYear >= 2016).count(_.qualifying)
-  val qualifyingYearsPre2016: Int = qualifyingYears - qualifyingYearsPost2016
+  val qualifyingYearsPre2016: Int = qualifyingYears.getOrElse(0) - qualifyingYearsPost2016
 
   def purge(finalRelevantStartYear: Int): DesNIRecord = {
     val filteredYears = taxYears.filter(_.startTaxYear <= finalRelevantStartYear)
@@ -32,7 +32,7 @@ case class DesNIRecord(qualifyingYears: Int, taxYears: List[DesNITaxYear]) {
     if (purgedYears.nonEmpty) Logger.warn(s"Purged years (FRY $finalRelevantStartYear): ${purgedYears.map(_.startTaxYear).mkString(",")}")
 
     this.copy(
-      qualifyingYears = qualifyingYears - purgedYears.count(_.qualifying),
+      qualifyingYears = Some(qualifyingYears.getOrElse(0) - purgedYears.count(_.qualifying)),
       taxYears = filteredYears
     )
   }
@@ -44,7 +44,7 @@ object DesNIRecord {
     jsPath => jsPath.readNullable[List[DesNITaxYear]].map(_.getOrElse(List.empty))
 
   implicit val reads: Reads[DesNIRecord] = (
-    (__ \ "numberOfQualifyingYears").read[Int] and
+    (__ \ "numberOfQualifyingYears").readNullable[Int] and
       readNullableList(__ \ "taxYears")
     ) (DesNIRecord.apply _)
 }
