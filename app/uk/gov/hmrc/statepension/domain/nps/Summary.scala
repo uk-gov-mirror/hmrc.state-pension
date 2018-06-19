@@ -23,7 +23,7 @@ import play.api.libs.functional.syntax._
 import scala.math.BigDecimal.RoundingMode
 
 case class DesSummary(
-                       earningsIncludedUpTo: LocalDate,
+                       earningsIncludedUpTo: Option[LocalDate] = None,
                        sex: String,
                        statePensionAgeDate: LocalDate,
                        finalRelevantStartYear: Int,
@@ -50,7 +50,7 @@ object DesSummary {
     jsPath => jsPath.readNullable[Boolean].map(_.getOrElse(false))
 
   implicit val reads: Reads[DesSummary] = (
-    (JsPath \ "earningsIncludedUpto").read[LocalDate] and
+    (JsPath \ "earningsIncludedUpto").readNullable[LocalDate] and
       (JsPath \ "sex").read[String] and
       (JsPath \ "spaDate").read[LocalDate] and
       (JsPath \ "finalRelevantYear").read[Int] and

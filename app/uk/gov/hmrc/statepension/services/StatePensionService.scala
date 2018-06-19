@@ -88,14 +88,14 @@ trait DesConnection extends StatePensionService {
       } else {
 
         val forecast = forecastingService.calculateForecastAmount(
-          summary.earningsIncludedUpTo,
+          summary.earningsIncludedUpTo.getOrElse(new LocalDate()),
           summary.finalRelevantStartYear,
           summary.amounts.pensionEntitlementRounded,
           purgedRecord.qualifyingYears
         )
 
         val personalMaximum = forecastingService.calculatePersonalMaximum(
-          summary.earningsIncludedUpTo,
+          summary.earningsIncludedUpTo.getOrElse(new LocalDate()),
           summary.finalRelevantStartYear,
           purgedRecord.qualifyingYearsPre2016,
           purgedRecord.qualifyingYearsPost2016,
@@ -106,7 +106,7 @@ trait DesConnection extends StatePensionService {
         )
 
         val statePension = StatePension(
-          earningsIncludedUpTo = summary.earningsIncludedUpTo,
+          earningsIncludedUpTo = summary.earningsIncludedUpTo.getOrElse(new LocalDate()),
           amounts = StatePensionAmounts(
             summary.amounts.protectedPayment2016 > 0,
             StatePensionAmount(None, None, forecastingService.sanitiseCurrentAmount(summary.amounts.pensionEntitlementRounded, purgedRecord.qualifyingYears)),
@@ -168,7 +168,7 @@ trait DesConnection extends StatePensionService {
     //Audit Des Data used in calculation
     customAuditConnector.sendEvent(DesForecasting(
       nino,
-      summary.earningsIncludedUpTo,
+      summary.earningsIncludedUpTo.getOrElse(new LocalDate()),
       qualifyingYears,
       summary.amounts.amountA2016,
       summary.amounts.amountB2016,

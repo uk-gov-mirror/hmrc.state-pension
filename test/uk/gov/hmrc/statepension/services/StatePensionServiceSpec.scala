@@ -106,7 +106,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
         }
 
         val regularStatement = DesSummary(
-          earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+          earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
           sex = "F",
           statePensionAgeDate = new LocalDate(2019, 9, 6),
           finalRelevantStartYear = 2018,
@@ -453,7 +453,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
         }
 
         val regularStatement = DesSummary(
-          earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+          earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
           sex = "F",
           statePensionAgeDate = new LocalDate(2019, 9, 6),
           finalRelevantStartYear = 2018,
@@ -527,7 +527,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2019, 9, 6),
         finalRelevantStartYear = 2018,
@@ -653,7 +653,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2019, 9, 6),
         finalRelevantStartYear = 2018,
@@ -719,7 +719,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2019, 9, 6),
         finalRelevantStartYear = 2018,
@@ -879,7 +879,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2019, 9, 6),
         finalRelevantStartYear = 2018,
@@ -938,7 +938,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2050, 7, 7),
         finalRelevantStartYear = 2049,
@@ -1015,7 +1015,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(1954, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(1954, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2016, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1092,7 +1092,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2018, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1192,7 +1192,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "M",
         statePensionAgeDate = new LocalDate(2018, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1254,7 +1254,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "M",
         statePensionAgeDate = new LocalDate(2018, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1330,7 +1330,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "M",
         statePensionAgeDate = new LocalDate(2018, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1399,7 +1399,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "M",
         statePensionAgeDate = new LocalDate(2018, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1469,7 +1469,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2034, 4, 5),
         finalRelevantStartYear = 2018,
@@ -1552,7 +1552,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2034, 4, 6),
         finalRelevantStartYear = 2018,
@@ -1635,7 +1635,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val summary = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2038, 1, 1),
         finalRelevantStartYear = 2049,
@@ -1723,7 +1723,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2042, 4, 5),
         finalRelevantStartYear = 2018,
@@ -1806,7 +1806,7 @@ class StatePensionServiceSpec extends StatePensionUnitSpec with OneAppPerSuite w
       }
 
       val regularStatement = DesSummary(
-        earningsIncludedUpTo = new LocalDate(2016, 4, 5),
+        earningsIncludedUpTo = Some(new LocalDate(2016, 4, 5)),
         sex = "F",
         statePensionAgeDate = new LocalDate(2042, 4, 6),
         finalRelevantStartYear = 2018,

@@ -240,8 +240,7 @@ class DesConnectorSpec extends StatePensionUnitSpec with MockitoSugar {
     "parse the json and return a Future[DesSummary]" in {
       val summary = await(connector.getSummary(nino))
       summary shouldBe DesSummary(
-        new LocalDate(2016, 4, 5),
-        "M",
+        Some(new LocalDate(2016, 4, 5)),"M",
         statePensionAgeDate = new LocalDate(2019, 9, 6),
         finalRelevantStartYear = 2018,
         pensionSharingOrderSERPS = true,
@@ -322,7 +321,7 @@ class DesConnectorSpec extends StatePensionUnitSpec with MockitoSugar {
 
       ScalaFutures.whenReady(connector.getSummary(nino).failed) { ex =>
         ex shouldBe a[connector.JsonValidationException]
-        ex.getMessage shouldBe "/earningsIncludedUpto - error.path.missing | /statePensionAmount/amountA2016/ltbPost88CodCashValue - error.expected.jsnumberorjsstring"
+        ex.getMessage shouldBe "/statePensionAmount/amountA2016/ltbPost88CodCashValue - error.expected.jsnumberorjsstring"
       }
     }
   }
