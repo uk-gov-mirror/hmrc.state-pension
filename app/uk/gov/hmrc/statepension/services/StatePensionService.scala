@@ -24,6 +24,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.statepension.connectors.NpsConnector
 import uk.gov.hmrc.statepension.domain._
+import uk.gov.hmrc.statepension.domain.Exclusion._
 import uk.gov.hmrc.statepension.domain.nps.Summary
 import uk.gov.hmrc.statepension.events.Forecasting
 import scala.concurrent.{ExecutionContext, Future}

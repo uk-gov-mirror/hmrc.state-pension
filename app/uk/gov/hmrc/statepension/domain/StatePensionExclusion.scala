@@ -21,19 +21,25 @@ import play.api.libs.json._
 import play.api.libs.json.JodaWrites._
 import play.api.libs.json.JodaReads._
 
+trait Exclusion
 
-sealed trait Exclusion
+object Exclusion {
+  case object IsleOfMan extends Exclusion
+  case object Dead extends Exclusion
+  case object AmountDissonance extends Exclusion
+  case object PostStatePensionAge extends Exclusion
+  case object ManualCorrespondenceIndicator extends Exclusion
+  case object CopeExclusion extends Exclusion
 
-case object IsleOfMan extends Exclusion
-case object Dead extends Exclusion
-case object AmountDissonance extends Exclusion
-case object PostStatePensionAge extends Exclusion
-case object ManualCorrespondenceIndicator extends Exclusion
-case object CopeExclusion extends Exclusion {
-  def copeDataAvailableDate: Option[LocalDate] = ???
-  def copeInitialDate: Option[LocalDate] = ???
+  implicit object ExclusionFormat extends Format[Exclusion] {
+    override def reads(json: JsValue): JsResult[Exclusion] =
+      json match {
+        case ex: Exclusion => JsSuccess(ex)
+        case _ => JsError("Exclusion not valid!")
+      }
 
-  implicit val format: Format[CopeExclusion] = ???
+    override def writes(ex: Exclusion): JsValue = JsString(ex.toString)
+  }
 }
 
 case class StatePensionExclusion(exclusionReasons: List[Exclusion],

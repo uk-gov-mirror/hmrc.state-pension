@@ -21,7 +21,8 @@ import com.codahale.metrics.{Counter, Histogram, Timer}
 import com.google.inject.Inject
 import com.kenshoo.play.metrics.Metrics
 import uk.gov.hmrc.statepension.domain.nps.APIType
-import uk.gov.hmrc.statepension.domain.{AmountDissonance, Dead, Exclusion, IsleOfMan, MQPScenario, ManualCorrespondenceIndicator, PostStatePensionAge, Scenario}
+import uk.gov.hmrc.statepension.domain.Exclusion._
+import uk.gov.hmrc.statepension.domain.{Exclusion, MQPScenario, Scenario}
 
 class ApplicationMetrics @Inject()(metrics: Metrics) {
 

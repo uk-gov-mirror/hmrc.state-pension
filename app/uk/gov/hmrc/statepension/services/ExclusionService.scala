@@ -18,7 +18,8 @@ package uk.gov.hmrc.statepension.services
 
 import org.joda.time.LocalDate
 import play.Logger
-import uk.gov.hmrc.statepension.domain.{AmountDissonance, Dead, Exclusion, IsleOfMan, ManualCorrespondenceIndicator, PostStatePensionAge}
+import uk.gov.hmrc.statepension.domain.Exclusion
+import uk.gov.hmrc.statepension.domain.Exclusion._
 import uk.gov.hmrc.statepension.domain.nps.{Liability, LiabilityType}
 import uk.gov.hmrc.statepension.util.FunctionHelper
 
