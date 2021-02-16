@@ -26,9 +26,10 @@ import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import uk.gov.hmrc.statepension.config.AppContext
 import uk.gov.hmrc.statepension.controllers.auth.AuthAction
 import uk.gov.hmrc.statepension.controllers.{ErrorHandling, ErrorResponses, HalSupport, Links}
-import uk.gov.hmrc.statepension.domain.Exclusion
+import uk.gov.hmrc.statepension.domain.{Dead, Exclusion, ManualCorrespondenceIndicator}
 import uk.gov.hmrc.statepension.events.{StatePension, StatePensionExclusion}
 import uk.gov.hmrc.statepension.services.StatePensionService
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 @Singleton
@@ -51,13 +52,13 @@ abstract class StatePensionController(controllerComponents: ControllerComponents
     implicit request =>
       errorWrapper(statePensionService.getStatement(nino).map {
 
-        case Left(exclusion) if exclusion.exclusionReasons.contains(Exclusion.Dead) =>
-          customAuditConnector.sendEvent(StatePensionExclusion(nino, List(Exclusion.Dead),
+        case Left(exclusion) if exclusion.exclusionReasons.contains(Dead) =>
+          customAuditConnector.sendEvent(StatePensionExclusion(nino, List(Dead),
             exclusion.pensionAge, exclusion.pensionDate, exclusion.statePensionAgeUnderConsideration))
           Forbidden(Json.toJson(ErrorResponses.ExclusionDead))
 
-        case Left(exclusion) if exclusion.exclusionReasons.contains(Exclusion.ManualCorrespondenceIndicator) =>
-          customAuditConnector.sendEvent(StatePensionExclusion(nino, List(Exclusion.ManualCorrespondenceIndicator),
+        case Left(exclusion) if exclusion.exclusionReasons.contains(ManualCorrespondenceIndicator) =>
+          customAuditConnector.sendEvent(StatePensionExclusion(nino, List(ManualCorrespondenceIndicator),
             exclusion.pensionAge, exclusion.pensionDate, exclusion.statePensionAgeUnderConsideration))
           Forbidden(Json.toJson(ErrorResponses.ExclusionManualCorrespondence))
 

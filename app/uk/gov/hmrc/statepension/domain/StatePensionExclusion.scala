@@ -22,21 +22,21 @@ import play.api.libs.json.JodaWrites._
 import play.api.libs.json.JodaReads._
 
 
-object Exclusion extends Enumeration {
-  type Exclusion = Value
-  val IsleOfMan = Value
-  val Dead = Value
-  val AmountDissonance = Value
-  val PostStatePensionAge = Value
-  val ManualCorrespondenceIndicator = Value
+sealed trait Exclusion
 
-  implicit val formats = new Format[Exclusion] {
-    def reads(json: JsValue): JsResult[Exclusion] = JsSuccess(Exclusion.withName(json.as[String]) )
-    def writes(exclusion: Exclusion): JsValue = JsString(exclusion.toString)
-  }
+case object IsleOfMan extends Exclusion
+case object Dead extends Exclusion
+case object AmountDissonance extends Exclusion
+case object PostStatePensionAge extends Exclusion
+case object ManualCorrespondenceIndicator extends Exclusion
+case object CopeExclusion extends Exclusion {
+  def copeDataAvailableDate: Option[LocalDate] = ???
+  def copeInitialDate: Option[LocalDate] = ???
+
+  implicit val format: Format[CopeExclusion] = ???
 }
 
-case class StatePensionExclusion(exclusionReasons: List[Exclusion.Exclusion],
+case class StatePensionExclusion(exclusionReasons: List[Exclusion],
                                  pensionAge: Int,
                                  pensionDate: LocalDate,
                                  statePensionAgeUnderConsideration: Boolean)
