@@ -34,7 +34,7 @@ object Exclusion {
   implicit object ExclusionFormat extends Format[Exclusion] {
     override def reads(json: JsValue): JsResult[Exclusion] =
       json match {
-        case ex: Exclusion => JsSuccess(ex)
+        case ex: Exclusion  => JsSuccess(ex)
         case _ => JsError("Exclusion not valid!")
       }
 
@@ -45,7 +45,9 @@ object Exclusion {
 case class StatePensionExclusion(exclusionReasons: List[Exclusion],
                                  pensionAge: Int,
                                  pensionDate: LocalDate,
-                                 statePensionAgeUnderConsideration: Boolean)
+                                 statePensionAgeUnderConsideration: Boolean,
+                                 copeDataAvailableDate: Option[LocalDate] = None,
+                                 copeInitialDate: Option[LocalDate] = None)
 
 object StatePensionExclusion {
   implicit val formats = Json.format[StatePensionExclusion]

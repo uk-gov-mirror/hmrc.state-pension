@@ -79,7 +79,8 @@ trait StatePensionService {
           pensionAge = summary.statePensionAge,
           pensionDate = summary.statePensionAgeDate,
           statePensionAgeUnderConsideration = if (exclusions.contains(AmountDissonance) || exclusions.contains(IsleOfMan))
-            checkStatePensionAgeUnderConsideration(summary.dateOfBirth) else false
+            checkStatePensionAgeUnderConsideration(summary.dateOfBirth) else false,
+          None, None
         ))
       } else {
 
