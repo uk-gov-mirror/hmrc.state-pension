@@ -30,6 +30,7 @@ object Exclusion {
   case object PostStatePensionAge extends Exclusion
   case object ManualCorrespondenceIndicator extends Exclusion
   case object CopeExclusion extends Exclusion
+  case object CopeExclusion2 extends Exclusion
 
   implicit object ExclusionFormat extends Format[Exclusion] {
     override def reads(json: JsValue): JsResult[Exclusion] =
@@ -45,9 +46,7 @@ object Exclusion {
 case class StatePensionExclusion(exclusionReasons: List[Exclusion],
                                  pensionAge: Int,
                                  pensionDate: LocalDate,
-                                 statePensionAgeUnderConsideration: Boolean,
-                                 copeDataAvailableDate: Option[LocalDate] = None,
-                                 copeInitialDate: Option[LocalDate] = None)
+                                 statePensionAgeUnderConsideration: Boolean)
 
 object StatePensionExclusion {
   implicit val formats = Json.format[StatePensionExclusion]

@@ -30,7 +30,8 @@ case class ExclusionService(dateOfDeath: Option[LocalDate],
                             startingAmount: BigDecimal,
                             calculatedStartingAmount: BigDecimal,
                             liabilities: List[Liability],
-                            manualCorrespondenceOnly: Boolean) {
+                            manualCorrespondenceOnly: Boolean,
+                            rdsCode: Option[String]) {
 
   lazy val getExclusions: List[Exclusion] = exclusions(List())
 
@@ -60,11 +61,19 @@ case class ExclusionService(dateOfDeath: Option[LocalDate],
     if (liabilities.exists(_.liabilityType.contains( LiabilityType.ISLE_OF_MAN))) IsleOfMan :: exclusionList
     else exclusionList
 
+  private val checkCopeExclusion = (exclusionList: List[Exclusion]) =>
+    rdsCode match {
+      case Some("63406") => CopeExclusion :: exclusionList
+      case Some("63407") => CopeExclusion2 :: exclusionList
+      case _ => exclusionList
+    }
+
   private val exclusions = FunctionHelper.composeAll(List(
     checkDead,
     checkManualCorrespondence,
     checkPostStatePensionAge,
     checkAmountDissonance,
-    checkIsleOfMan
+    checkIsleOfMan,
+    checkCopeExclusion
   ))
 }

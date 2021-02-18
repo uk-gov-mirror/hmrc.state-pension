@@ -62,6 +62,12 @@ abstract class StatePensionController(controllerComponents: ControllerComponents
             exclusion.pensionAge, exclusion.pensionDate, exclusion.statePensionAgeUnderConsideration))
           Forbidden(Json.toJson(ErrorResponses.ExclusionManualCorrespondence))
 
+        case Left(exclusion) if exclusion.exclusionReasons.contains(CopeExclusion) =>
+          Forbidden(Json.toJson(ErrorResponses.ExclusionCope))
+
+        case Left(exclusion) if exclusion.exclusionReasons.contains(CopeExclusion2) =>
+          Forbidden(Json.toJson(ErrorResponses.ExclusionCope2))
+
         case Left(exclusion) =>
           customAuditConnector.sendEvent(StatePensionExclusion(nino, exclusion.exclusionReasons,
             exclusion.pensionAge, exclusion.pensionDate, exclusion.statePensionAgeUnderConsideration))

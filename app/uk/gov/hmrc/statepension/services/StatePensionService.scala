@@ -63,7 +63,8 @@ trait StatePensionService {
         summary.amounts.startingAmount2016,
         forecastingService.calculateStartingAmount(summary.amounts.amountA2016.total, summary.amounts.amountB2016.mainComponent),
         liablities,
-        manualCorrespondence
+        manualCorrespondence,
+        summary.rdsCode
       ).getExclusions
 
       val purgedRecord = niRecord.purge(summary.finalRelevantStartYear)
@@ -79,8 +80,7 @@ trait StatePensionService {
           pensionAge = summary.statePensionAge,
           pensionDate = summary.statePensionAgeDate,
           statePensionAgeUnderConsideration = if (exclusions.contains(AmountDissonance) || exclusions.contains(IsleOfMan))
-            checkStatePensionAgeUnderConsideration(summary.dateOfBirth) else false,
-          None, None
+            checkStatePensionAgeUnderConsideration(summary.dateOfBirth) else false
         ))
       } else {
 
